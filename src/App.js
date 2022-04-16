@@ -4,7 +4,7 @@ import axios from 'axios'
 const Pokemon = ({pokemon}) => {
 
   return (
-    <>
+    <li>
       <h2>{pokemon.name.split('-').map(word => word[0].toUpperCase() + word.substr(1)).join(' ')}</h2>
       {pokemon ? 
                 <>
@@ -16,7 +16,7 @@ const Pokemon = ({pokemon}) => {
         : 
         'loading...'
       } 
-    </>
+    </li>
   )
 }
 
@@ -27,7 +27,6 @@ const Checkbox = ({label, onChange}) => {
     setChecked(!checked)
     onChange(event, !checked)
   }
-
 
   return (
     <div>
@@ -73,8 +72,6 @@ const App = () => {
   const loadPokemons = (url) => {
     const request = axios.get(url)
     request.then(response => {
-      // let pokemonsWithData = []
-
       let requests = []
       response.data.results.forEach(pokemon => {
         // dodatkowo, dla kazdego pokemona zrzucam potrzebne mi jego dane
@@ -111,7 +108,6 @@ const App = () => {
   }
 
   const filterPokemons = () => {
-    console.log('hi!')
     setFilteredPokemons(pokemons.filter(pokemon => pokemon.name.includes(filter.toLowerCase()) && pokemon.types.some(type => clickedTypes.length > 0 ? clickedTypes.includes(type) : true)))
   }
 
@@ -122,7 +118,6 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
-    // setFilteredPokemons(pokemons.filter(pokemon => pokemon.name.includes(event.target.value.toLowerCase())))
   }
   
   const handleCheckboxChange  = (event, checked) => {
