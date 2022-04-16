@@ -2,42 +2,32 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const Pokemon = ({pokemon}) => {
-  const [pokemonData, setPokemonData] = useState(null)
-
-  useEffect(() => {
-    axios
-      .get(pokemon.url)
-      .then(promise => {
-        const pokemonObject = {
-          types: promise.data.types.map(typeObject => typeObject.type.name),
-          weight: promise.data.weight,
-          height: promise.data.height,
-          // sprite: promise.data.sprites.other["official-artwork"].front_default
-          sprite: promise.data.sprites.front_default
-        }
-        setPokemonData(pokemonObject)
-      })
-  }, [])
 
   return (
     <>
       <h2>{pokemon.name.split('-').map(word => word[0].toUpperCase() + word.substr(1)).join(' ')}</h2>
-      {pokemonData === null ? 
-        'loading...' 
+      {pokemon ? 
+                <>
+                <p>types: {pokemon.types.join(', ')}</p>
+                <p>height: {pokemon.height}</p>
+                <p>weight: {pokemon.weight}</p>
+                <img src={pokemon.sprite} alt={pokemon.name + ' sprite'} />
+              </>
         : 
-        <>
-          <p>types: {pokemonData.types.join(', ')}</p>
-          <p>height: {pokemonData.height}</p>
-          <p>weight: {pokemonData.weight}</p>
-          <img src={pokemonData.sprite} alt={pokemonData.name + ' sprite'} />
-        </>
-      }
+        'loading...'
+      } 
     </>
   )
 }
 
 
 const Checkbox = ({label, onChange}) => {
+  const [checked, setChecked] = useState(false)
+  const handleClick = (event) => {
+    setChecked(!checked)
+    onChange(event, !checked)
+  }
+
 
   return (
     <div>
@@ -45,7 +35,8 @@ const Checkbox = ({label, onChange}) => {
         <input 
           type="checkbox"
           value={label}
-          onChange = {onChange}
+          checked={checked}
+          onChange = {handleClick}
         />
         {label}
       </label>
@@ -70,43 +61,68 @@ const App = () => {
 
   // wczytuje po kolei pokemony dopoki link do nastepnej 20-tki pokemonow nie jest nullem 
   useEffect(() => {
-    if (nextPokemonsUrl)
+    if (nextPokemonsUrl) 
       loadPokemons(nextPokemonsUrl)
-  }, [pokemons, nextPokemonsUrl])
 
-  
+  }, [pokemons, nextPokemonsUrl])
   
   const loadPokemons = (url) => {
     const request = axios.get(url)
-    return request.then(response => {
-      setPokemons(pokemons.concat(response.data.results))
-      setNextPokemonsUrl(response.data.next)
-      return
+    request.then(response => {
+      // let pokemonsWithData = []
+
+      let requests = []
+      response.data.results.forEach(pokemon => {
+        // dodatkowo, dla kazdego pokemona zrzucam potrzebne mi jego dane
+        requests.push(axios
+        .get(pokemon.url)
+        .then(response => {
+          const pokemonData = {
+            types: response.data.types.map(typeObject => typeObject.type.name),
+            weight: response.data.weight,
+            height: response.data.height,
+            // sprite: response.data.sprites.other["official-artwork"].front_default
+            sprite: response.data.sprites.front_default
+          }
+          return {...pokemon, ...pokemonData}
+        }))
+      })
+      // updatuje tablice z pokemonami dopiero gdy dane dla calej serii zostana pobrane 
+      // (aby useEffect wyzej nie odpalil sie za wczesnie) 
+      Promise.all(requests).then(results => {
+        setPokemons(pokemons.concat(results))
+        setNextPokemonsUrl(response.data.next)
+      })
+
+      
     })
   }
+
+  const loadTypes = () => {
+    axios
+   .get('https://pokeapi.co/api/v2/type')
+   .then(promise => {
+     setTypes(promise.data.results.map(type => type.name))
+   })
+ }
 
   const showMorePokemons = () => {
     const newAmount = amount + 20
     setAmount(newAmount)
   }
 
-
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
     setFilteredPokemons(pokemons.filter(pokemon => pokemon.name.includes(event.target.value.toLowerCase())))
   }
-
-   const loadTypes = () => {
-     axios
-    .get('https://pokeapi.co/api/v2/type')
-    .then(promise => {
-      setTypes(promise.data.results.map(type => type.name))
-
-    })
-  }
   
   const handleCheckboxChange  = (event, checked) => {
-    //TODO dodawanie / usuwanie itemow do clickedTypes
+    if (checked)
+      setClickedTypes(clickedTypes.concat(event.target.value))
+    else 
+      setClickedTypes(clickedTypes.filter(type => type === event.target.value ? false : true))
+
+    
   }
 
   return (
@@ -119,7 +135,7 @@ const App = () => {
 
       <h1>Pokedex</h1>
       {filter ?
-        filteredPokemons ? filteredPokemons.map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon}/>) : 'loading...'
+        filteredPokemons ? filteredPokemons.slice(0,amount).map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon}/>) : 'loading...'
       :
         pokemons ? pokemons.slice(0, amount).map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon}/>) : 'loading...'}
       <button onClick={showMorePokemons}>Load more...</button>
