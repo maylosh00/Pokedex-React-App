@@ -1,28 +1,63 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
+
 const Pokemon = ({pokemon}) => {
+  const [clicked, setClicked] = useState(false)
+
+  const handleClick = (event) => {
+    setClicked(!clicked)
+  }
+
+  const style = {
+    borderStyle: 'solid',
+    borderWidth: 1
+  }
 
   return (
     <li>
-      <h2>{pokemon.name.split('-').map(word => word[0].toUpperCase() + word.substr(1)).join(' ')}</h2>
-      {pokemon ? 
+      <div className='pokemon-card' style={style} onClick={handleClick}>
+        <h2>{pokemon.name.split('-').map(word => word[0].toUpperCase() + word.substr(1)).join(' ')}</h2>
+        {pokemon ? 
                 <>
-                <p>types: {pokemon.types.join(', ')}</p>
-                <p>height: {pokemon.height}</p>
-                <p>weight: {pokemon.weight}</p>
-                <img src={pokemon.sprite} alt={pokemon.name + ' sprite'} />
-              </>
-        : 
-        'loading...'
-      } 
+                  <p>types: {pokemon.types.join(', ')}</p>
+                  {/* <p>height: {pokemon.height}</p>
+                  <p>weight: {pokemon.weight}</p> */}
+                  {clicked ? 
+                  <>
+                    <p>height: {pokemon.height}</p>
+                    <p>weight: {pokemon.weight}</p>
+                  </>
+                  : ''}
+                  <img src={pokemon.sprite} alt={pokemon.name + ' sprite'} />
+                </>
+          : 
+          'loading...'
+        } 
+      </div>
     </li>
   )
 }
 
+const Pokemons = ({pokemons, filteredPokemons, showFiltered, amount, showMoreHandler, showLessHandler}) => {
+  return (
+    <div>
+      <ul>
+      {showFiltered ?
+        filteredPokemons ? filteredPokemons.slice(0,amount).map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon}/>) : 'loading...'
+      : 
+        pokemons ? pokemons.slice(0, amount).map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon}/>) : 'loading...'}
+      </ul>
 
-const Checkbox = ({label, onChange}) => {
-  const [checked, setChecked] = useState(false)
+      <button onClick={showMoreHandler}>Show more</button>
+      <button onClick={showLessHandler}>Show less</button>
+    </div>
+  )
+}
+
+
+const Checkbox = ({label, onChange, isChecked}) => {
+  const [checked, setChecked] = useState(isChecked)
   const handleClick = (event) => {
     setChecked(!checked)
     onChange(event, !checked)
@@ -39,6 +74,50 @@ const Checkbox = ({label, onChange}) => {
         />
         {label}
       </label>
+    </div>
+  )
+}
+
+const CheckboxFilter = ({types, clickedTypes, onCheckboxChange}) => {
+  return (
+    <>
+      {types.length > 0 ? 
+      types.map(type => 
+        <Checkbox 
+          label={type} 
+          key={type} 
+          onChange={onCheckboxChange} 
+          isChecked={clickedTypes ? clickedTypes.includes(type) : false}
+        />) 
+        : 
+        'loading...'}
+    </>
+  )
+}
+
+const Filters = ({onInputChange, onCheckboxChange, types, clickedTypes}) => {
+  const [showCheckboxes, setShowCheckboxes] = useState(false)
+
+  const handleClick = (event) => {
+    setShowCheckboxes(!showCheckboxes)
+  }
+
+  return (
+    <div>
+      <h2>Search for pokemons:</h2>
+      <input placeholder='e.g. "Pikachu"' onChange={onInputChange}/>
+
+      <div>
+        <button onClick={handleClick}>Show advanced filtering options</button>
+        
+        {showCheckboxes ? 
+        <>
+          <h2>Filter by type:</h2>
+          <CheckboxFilter types={types} onCheckboxChange={onCheckboxChange} clickedTypes={clickedTypes} /> 
+        </>
+        : 
+          ''}
+      </div>
     </div>
   )
 }
@@ -111,11 +190,6 @@ const App = () => {
     setFilteredPokemons(pokemons.filter(pokemon => pokemon.name.includes(filter.toLowerCase()) && pokemon.types.some(type => clickedTypes.length > 0 ? clickedTypes.includes(type) : true)))
   }
 
-  const showMorePokemons = () => {
-    const newAmount = amount + 20
-    setAmount(newAmount)
-  }
-
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
   }
@@ -130,17 +204,23 @@ const App = () => {
   return (
     
     <div className="App">
-      <h2>Search for pokemons:</h2>
-      <input placeholder='e.g. "Pikachu"' onChange={handleFilterChange}/>
-      <h2>Filter by type:</h2>
-      {types ? types.map(type => <Checkbox label={type} key={type} onChange={handleCheckboxChange}/>) : 'loading...'}
-
       <h1>Pokedex</h1>
-      {(clickedTypes.length > 0 || filter !== '') ?
-        filteredPokemons ? filteredPokemons.slice(0,amount).map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon}/>) : 'loading...'
-      : 
-        pokemons ? pokemons.slice(0, amount).map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon}/>) : 'loading...'}
-      <button onClick={showMorePokemons}>Load more...</button>
+
+      <Filters
+        onInputChange={handleFilterChange}
+        onCheckboxChange={handleCheckboxChange}
+        types={types}
+        clickedTypes={clickedTypes}
+      />
+      
+      <Pokemons 
+        pokemons={pokemons} 
+        filteredPokemons={filteredPokemons}
+        showFiltered={clickedTypes.length > 0 || filter !== ''}
+        amount={amount}
+        showMoreHandler={() => setAmount(amount + 20)}
+        showLessHandler={() => setAmount(20)}
+      />
     </div>
   );
 }
