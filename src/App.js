@@ -66,6 +66,10 @@ const App = () => {
 
   }, [pokemons, nextPokemonsUrl])
   
+  useEffect(() => {
+    filterPokemons()
+  }, [filter, clickedTypes])
+
   const loadPokemons = (url) => {
     const request = axios.get(url)
     request.then(response => {
@@ -100,11 +104,16 @@ const App = () => {
 
   const loadTypes = () => {
     axios
-   .get('https://pokeapi.co/api/v2/type')
-   .then(promise => {
-     setTypes(promise.data.results.map(type => type.name))
-   })
- }
+      .get('https://pokeapi.co/api/v2/type')
+      .then(promise => {
+        setTypes(promise.data.results.map(type => type.name))
+      })
+  }
+
+  const filterPokemons = () => {
+    console.log('hi!')
+    setFilteredPokemons(pokemons.filter(pokemon => pokemon.name.includes(filter.toLowerCase()) && pokemon.types.some(type => clickedTypes.length > 0 ? clickedTypes.includes(type) : true)))
+  }
 
   const showMorePokemons = () => {
     const newAmount = amount + 20
@@ -113,7 +122,7 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
-    setFilteredPokemons(pokemons.filter(pokemon => pokemon.name.includes(event.target.value.toLowerCase())))
+    // setFilteredPokemons(pokemons.filter(pokemon => pokemon.name.includes(event.target.value.toLowerCase())))
   }
   
   const handleCheckboxChange  = (event, checked) => {
@@ -121,8 +130,6 @@ const App = () => {
       setClickedTypes(clickedTypes.concat(event.target.value))
     else 
       setClickedTypes(clickedTypes.filter(type => type === event.target.value ? false : true))
-
-    
   }
 
   return (
@@ -134,9 +141,9 @@ const App = () => {
       {types ? types.map(type => <Checkbox label={type} key={type} onChange={handleCheckboxChange}/>) : 'loading...'}
 
       <h1>Pokedex</h1>
-      {filter ?
+      {(clickedTypes.length > 0 || filter !== '') ?
         filteredPokemons ? filteredPokemons.slice(0,amount).map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon}/>) : 'loading...'
-      :
+      : 
         pokemons ? pokemons.slice(0, amount).map(pokemon => <Pokemon key={pokemon.name} pokemon={pokemon}/>) : 'loading...'}
       <button onClick={showMorePokemons}>Load more...</button>
     </div>
