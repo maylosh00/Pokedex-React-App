@@ -2,21 +2,22 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Filters from './components/Filters'
 import Pokemons from './components/Pokemons'
+
+import useTypes from './hooks/useTypes'
 import './sass/app.sass'
+
+const TYPES_URL = 'https://pokeapi.co/api/v2/type'
+const POKEMONS_URL = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20'
 
 const App = () => {
   const [pokemons, setPokemons] = useState([])
   const [filteredPokemons, setFilteredPokemons] = useState([])
   const [filter, setFilter] = useState('')
-  const [types, setTypes] = useState([])
   const [clickedTypes, setClickedTypes] = useState([])
   const [amount, setAmount] = useState(20)
-  const [nextPokemonsUrl, setNextPokemonsUrl] = useState('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20')
-
-
-  useEffect(() => {
-    loadTypes()
-  }, [])
+  const [nextPokemonsUrl, setNextPokemonsUrl] = useState(POKEMONS_URL)
+  // custom hooks for fetching data
+  const {types, typesError} = useTypes(TYPES_URL)
 
   // wczytuje po kolei pokemony dopoki link do nastepnej 20-tki pokemonow nie jest nullem 
   useEffect(() => {
@@ -57,14 +58,6 @@ const App = () => {
     })
   }
 
-  const loadTypes = () => {
-    axios
-      .get('https://pokeapi.co/api/v2/type')
-      .then(promise => {
-        setTypes(promise.data.results.map(type => type.name))
-      })
-  }
-
   const filterPokemons = () => {
     setFilteredPokemons(pokemons.filter(pokemon => {
       // changes the original name format from "pokemon-name" to "pokemon name"
@@ -94,6 +87,7 @@ const App = () => {
     <div className="app">
       <h1>Pokedex</h1>
 
+      {typesError && <div className='error-message'>{typesError}</div>}
       <Filters
         {...{handleInputChange, handleCheckboxChange, types, clickedTypes}}
       />
