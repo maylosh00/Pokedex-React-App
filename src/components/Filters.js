@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import CheckboxFilter from './CheckboxFilter'
+import '../styles/app.css'
 
 //div containing both name and checkbox filters
 
@@ -11,18 +12,20 @@ const Filters = ({handleInputChange, handleCheckboxChange, types, clickedTypes})
   }
 
   return (
-    <div>
-      <h2>Search for pokemons:</h2>
-      <input placeholder='e.g. "Pikachu"' onChange={handleInputChange}/>
+    <div className='filter-container'>
+      <p>Search for pokemons:</p>
+      <div className='search-bar'>
+        <input placeholder='e.g. "Pikachu"' onChange={handleInputChange}/>
+      </div>
 
-      <div>
+      <div className='checkbox-container'>
         <button onClick={handleClick}>
-          {showCheckboxes ? 'Hide advanced filtering options' : 'Show advanced filtering options'}
+          {showCheckboxes ? 'Hide filters' : 'Show more filters'}
         </button>
         
         {showCheckboxes ? 
           <>
-            <h2>Filter by type:</h2>
+            <p>Filter by type:</p>
             <CheckboxFilter types={types} onCheckboxChange={handleCheckboxChange} clickedTypes={clickedTypes} /> 
           </>
         : 

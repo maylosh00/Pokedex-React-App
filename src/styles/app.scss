@@ -1,0 +1,291 @@
+@import './variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.app {
+    background-image: url("../img/bg-white.png");
+    min-height: 100vh;
+}
+
+header {
+    z-index: 1;
+    position: sticky; 
+    top: 0;
+    height: 75px;
+    background: #FFF;
+    box-shadow: 3px 3px 8px #00000020;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        height: 75%;
+    }
+}
+
+.filter-container {
+    background-color: $base-dark-orange;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    padding: 1em 0;
+
+    p {
+        font-weight: 300;
+        font-size: 20px;
+    }
+
+    .search-bar {
+        height: 2em;
+        width: 25em;
+        background-color: #fff;
+        border-radius: 2em;
+        padding: 0 1em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0.5em 0;
+
+        input {
+            border: none;
+            flex-grow: 1;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            outline: none;
+            color: $base-dark-orange;
+        }
+        input::placeholder {
+            color: $base-dark-orange;
+        }
+    }
+
+    .checkbox-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        button {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            min-width: 16em;
+            margin-top: 1em;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: #fff;
+            height: 2em;
+            border: solid 1px #fff;
+            border-radius: 2em;
+            padding: 1em 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transform: background-color, color;
+            transition: .2s ease-out;
+        }
+        button:hover {
+            background-color: #fff;
+            color: $base-dark-orange;
+        }
+
+        p {
+            margin-top: 0.5em;
+        }
+
+        .checkboxes {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            column-gap: 0.2em;
+
+            .checkbox {
+                margin-top: 1em;
+                // display: flex;
+                // justify-content: center;
+                // align-items: center;
+
+                label {
+                    font-family: 'Montserrat', sans-serif;
+                    font-weight: 300;
+                    display: flex;
+                    justify-content: left;
+                    align-items: center; 
+                    
+                    input {
+                        margin-right: 0.1em;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+.pokemons-section {
+    display: flex;
+    padding: 1.5em 0;
+    align-items: center;
+    justify-content: center;
+
+    .pokemons-container {
+        // width: 100em;
+        max-width: 95%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        column-gap: 2em;
+        row-gap: 1.5em;
+
+        .pokemon-card {
+            width: 18em;
+            min-height: 6.5em;
+            background-color: white;
+            transform: background-color;
+            transition: .2s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: right;
+            padding: 0.5em;
+            padding-left: 1em;
+            box-shadow: 2px 2px 5px #00000015;
+            cursor: pointer;
+
+            .attributes {
+                font-family: 'Montserrat', sans-serif;
+                color: $base-dark-blue;
+                display: flex;
+                flex-direction: column;
+                align-items: left;
+                justify-content: center;
+                flex-grow: 1;
+                max-width: 11em;
+
+                p {
+                    font-size: 24px;
+                    font-weight: 300;
+                }
+
+                .types-container {
+                    display: flex;
+                    justify-content: left;
+                    margin-top: 0.5em;
+
+                    .type {
+                        background-color: gray;
+                        border-radius: 0.4em;
+                        color: #fff;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        p {
+                            font-family: 'Montserrat', sans-serif;
+                            font-size: 12px;
+                            padding: 0.2em 0.5em;
+                        }
+                    }
+                    .type:first-child {
+                        margin-right: 0.5em;
+                    }
+
+                    .type-normal { background-color: $poke-normal !important ;}
+                    .type-fighting { background-color: $poke-fighting !important ;}
+                    .type-flying { background-color: $poke-flying !important ;}
+                    .type-poison { background-color: $poke-poison !important ;}
+                    .type-ground { background-color: $poke-ground !important ;}
+                    .type-rock { background-color: $poke-rock !important ;}
+                    .type-bug { background-color: $poke-bug !important ;}
+                    .type-ghost { background-color: $poke-ghost !important ;}
+                    .type-steel { background-color: $poke-steel !important ;}
+                    .type-fire { background-color: $poke-fire !important ;}
+                    .type-water { background-color: $poke-water !important ;}
+                    .type-grass { background-color: $poke-grass !important ;}
+                    .type-electric { background-color: $poke-electric !important ;}
+                    .type-psychic { background-color: $poke-psychic !important ;}
+                    .type-ice { background-color: $poke-ice !important ;}
+                    .type-dragon { background-color: $poke-dragon !important ;}
+                    .type-dark { background-color: $poke-dark !important ;}
+                    .type-fairy { background-color: $poke-fairy !important ;}
+                }
+
+                .info-container {
+                    p {
+                        font-size: 16px;
+                        margin-top: 0.5em;
+                    }
+                }
+            }
+            
+
+            .pokemon-img-container {
+                width: 5.5em;
+                height: 5.5em;
+                border-radius: 1.5em;
+                background-color: $base-light-gray;
+                overflow: hidden;
+                position: relative;
+
+                .pokemon-img {
+                    position: absolute;
+                    left: -1000%;
+                    right: -1000%;
+                    top: -1000%;
+                    bottom: -1000%;
+                    margin: auto;
+                    width: 95%;
+                    height: 95%;
+                }
+            }
+        }
+
+        .pokemon-card:hover {
+            background-color: $base-light-gray;
+        }
+        
+    }
+}
+
+.buttons-container {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em 0 2em 0;
+
+    button {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        min-width: 16em;
+        outline: none;
+        background-color: #fff;
+        color: $base-blue;
+        height: 2em;
+        border: solid 1px $base-blue;
+        box-shadow: 2px 2px 5px #00000015;
+        border-radius: 2em;
+        padding: 1em 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+        transform: background-color, color;
+        transition: .2s ease-out;
+    }
+    button:hover {
+        background-color: $base-blue;
+        color: #fff;
+    }
+    button:first-child {
+        margin-right: 1em;
+    }
+
+}

@@ -1,0 +1,451 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap");
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+}
+
+.app {
+  background-image: url("../img/bg-white.png");
+  min-height: 100vh;
+}
+
+header {
+  z-index: 1;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 75px;
+  background: #FFF;
+  -webkit-box-shadow: 3px 3px 8px #00000020;
+          box-shadow: 3px 3px 8px #00000020;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+header img {
+  height: 75%;
+}
+
+.filter-container {
+  background-color: #E76F51;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  padding: 1em 0;
+}
+
+.filter-container p {
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.filter-container .search-bar {
+  height: 2em;
+  width: 25em;
+  background-color: #fff;
+  border-radius: 2em;
+  padding: 0 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0.5em 0;
+}
+
+.filter-container .search-bar input {
+  border: none;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  outline: none;
+  color: #E76F51;
+}
+
+.filter-container .search-bar input::-webkit-input-placeholder {
+  color: #E76F51;
+}
+
+.filter-container .search-bar input:-ms-input-placeholder {
+  color: #E76F51;
+}
+
+.filter-container .search-bar input::-ms-input-placeholder {
+  color: #E76F51;
+}
+
+.filter-container .search-bar input::placeholder {
+  color: #E76F51;
+}
+
+.filter-container .checkbox-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.filter-container .checkbox-container button {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  min-width: 16em;
+  margin-top: 1em;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #fff;
+  height: 2em;
+  border: solid 1px #fff;
+  border-radius: 2em;
+  padding: 1em 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: pointer;
+  -webkit-transform: background-color, color;
+          transform: background-color, color;
+  -webkit-transition: .2s ease-out;
+  transition: .2s ease-out;
+}
+
+.filter-container .checkbox-container button:hover {
+  background-color: #fff;
+  color: #E76F51;
+}
+
+.filter-container .checkbox-container p {
+  margin-top: 0.5em;
+}
+
+.filter-container .checkbox-container .checkboxes {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[10];
+      grid-template-columns: repeat(10, 1fr);
+  -webkit-column-gap: 0.2em;
+          column-gap: 0.2em;
+}
+
+.filter-container .checkbox-container .checkboxes .checkbox {
+  margin-top: 1em;
+}
+
+.filter-container .checkbox-container .checkboxes .checkbox label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.filter-container .checkbox-container .checkboxes .checkbox label input {
+  margin-right: 0.1em;
+}
+
+.pokemons-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 1.5em 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.pokemons-section .pokemons-container {
+  max-width: 95%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+  -webkit-column-gap: 2em;
+          column-gap: 2em;
+  row-gap: 1.5em;
+}
+
+.pokemons-section .pokemons-container .pokemon-card {
+  width: 18em;
+  min-height: 6.5em;
+  background-color: white;
+  -webkit-transform: background-color;
+          transform: background-color;
+  -webkit-transition: .2s ease-out;
+  transition: .2s ease-out;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  padding: 0.5em;
+  padding-left: 1em;
+  -webkit-box-shadow: 2px 2px 5px #00000015;
+          box-shadow: 2px 2px 5px #00000015;
+  cursor: pointer;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes {
+  font-family: 'Montserrat', sans-serif;
+  color: #264653;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  max-width: 11em;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes p {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  margin-top: 0.5em;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type {
+  background-color: gray;
+  border-radius: 0.4em;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  padding: 0.2em 0.5em;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type:first-child {
+  margin-right: 0.5em;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-normal {
+  background-color: #a8a878 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-fighting {
+  background-color: #c02038 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-flying {
+  background-color: #a890f0 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-poison {
+  background-color: #a040a0 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-ground {
+  background-color: #e0c068 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-rock {
+  background-color: #b8a038 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-bug {
+  background-color: #a8b820 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-ghost {
+  background-color: #705898 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-steel {
+  background-color: #b8b8d0 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-fire {
+  background-color: #f08030 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-water {
+  background-color: #6890f0 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-grass {
+  background-color: #78c850 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-electric {
+  background-color: #f8d030 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-psychic {
+  background-color: #f85888 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-ice {
+  background-color: #98d8d8 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-dragon {
+  background-color: #7038f8 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-dark {
+  background-color: #705848 !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-fairy {
+  background-color: #ee99ac !important;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .attributes .info-container p {
+  font-size: 16px;
+  margin-top: 0.5em;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .pokemon-img-container {
+  width: 5.5em;
+  height: 5.5em;
+  border-radius: 1.5em;
+  background-color: #ECECEC;
+  overflow: hidden;
+  position: relative;
+}
+
+.pokemons-section .pokemons-container .pokemon-card .pokemon-img-container .pokemon-img {
+  position: absolute;
+  left: -1000%;
+  right: -1000%;
+  top: -1000%;
+  bottom: -1000%;
+  margin: auto;
+  width: 95%;
+  height: 95%;
+}
+
+.pokemons-section .pokemons-container .pokemon-card:hover {
+  background-color: #ECECEC;
+}
+
+.buttons-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 1em 0 2em 0;
+}
+
+.buttons-container button {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  min-width: 16em;
+  outline: none;
+  background-color: #fff;
+  color: #2A9D8F;
+  height: 2em;
+  border: solid 1px #2A9D8F;
+  -webkit-box-shadow: 2px 2px 5px #00000015;
+          box-shadow: 2px 2px 5px #00000015;
+  border-radius: 2em;
+  padding: 1em 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: pointer;
+  -webkit-transform: background-color, color;
+          transform: background-color, color;
+  -webkit-transition: .2s ease-out;
+  transition: .2s ease-out;
+}
+
+.buttons-container button:hover {
+  background-color: #2A9D8F;
+  color: #fff;
+}
+
+.buttons-container button:first-child {
+  margin-right: 1em;
+}
+/*# sourceMappingURL=app.css.map */

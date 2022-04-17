@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import '../sass/pokemon-card.sass'
 
 //list item related to a particular pokemon, can be clicked to show more info
 
@@ -11,18 +10,23 @@ const PokemonCard = ({pokemon}) => {
   }
 
   return (
-    <li>
-      <div className='pokemon-card' onClick={handleClick}>
+    <li className='pokemon-card' onClick={handleClick}>
         <div className='attributes'>
-          <h2>{pokemon.name.split('-').map(word => word[0].toUpperCase() + word.substr(1)).join(' ')}</h2>
+          <p>{pokemon.name.split('-').map(word => word[0].toUpperCase() + word.substr(1)).join(' ')}</p>
           {pokemon ? 
             <>
-              <p>types: {pokemon.types.join(', ')}</p>
+              <div className='types-container'>
+                {pokemon.types.map(type => 
+                <div className={`type type-${type}`}>
+                  <p>{type}</p>
+                </div>
+                )}
+              </div>
               {clicked ? 
-                <>
+                <div className='info-container'>
                   <p>height: {pokemon.height}</p>
                   <p>weight: {pokemon.weight}</p>
-                </>
+                </div>
               : ''}
              
             </>
@@ -30,8 +34,10 @@ const PokemonCard = ({pokemon}) => {
             'loading...'
           } 
         </div>
-        <img className='pokemon-img' src={pokemon.sprite} alt={pokemon.name + ' sprite'} />
-      </div>
+        <div className='pokemon-img-container'>
+          <img className='pokemon-img' src={pokemon.sprite !== null ? pokemon.sprite : './img/no-pokemon.png'} alt={pokemon.name + ' sprite'} />
+        </div>
+        
     </li>
   )
 }

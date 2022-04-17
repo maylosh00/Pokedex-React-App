@@ -4,7 +4,7 @@ import Checkbox from './Checkbox'
 
 const CheckboxFilter = ({types, clickedTypes, onCheckboxChange}) => {
   return (
-      <>
+      <div className='checkboxes'>
       {types.length > 0 ? 
       types.map(type => 
           <Checkbox 
@@ -15,7 +15,7 @@ const CheckboxFilter = ({types, clickedTypes, onCheckboxChange}) => {
         />) 
       : 
         'loading...'}
-    </>
+    </div>
   )
 }
 
