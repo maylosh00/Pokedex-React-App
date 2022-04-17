@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Filters from './components/Filters'
 import Pokemons from './components/Pokemons'
+import './sass/app.sass'
 
 const App = () => {
   const [pokemons, setPokemons] = useState([])
@@ -41,8 +42,8 @@ const App = () => {
             types: response.data.types.map(typeObject => typeObject.type.name),
             weight: response.data.weight,
             height: response.data.height,
-            // sprite: response.data.sprites.other["official-artwork"].front_default
-            sprite: response.data.sprites.front_default
+            sprite: response.data.sprites.other["official-artwork"].front_default
+            // sprite: response.data.sprites.front_default
           }
           return {...pokemon, ...pokemonData}
         }))
@@ -53,8 +54,6 @@ const App = () => {
         setPokemons(pokemons.concat(results))
         setNextPokemonsUrl(response.data.next)
       })
-
-      
     })
   }
 
@@ -81,9 +80,10 @@ const App = () => {
       setClickedTypes(clickedTypes.filter(type => type === event.target.value ? false : true))
   }
 
+  const pokemonsToShow = clickedTypes.length > 0 || filter !== '' ? filteredPokemons : pokemons
   return (
     
-    <div className="App">
+    <div className="app">
       <h1>Pokedex</h1>
 
       <Filters
@@ -94,13 +94,11 @@ const App = () => {
       />
       
       <Pokemons 
-        pokemons={pokemons} 
-        filteredPokemons={filteredPokemons}
-        showFiltered={clickedTypes.length > 0 || filter !== ''}
-        amount={amount}
-        showMoreHandler={() => setAmount(amount + 20)}
-        showLessHandler={() => setAmount(20)}
+        pokemons={pokemons.slice(0, amount)}
       />
+
+      <button onClick={() => setAmount(amount + 20)}>Show more</button>
+      <button onClick={() => setAmount(20)}>Show less</button>
     </div>
   );
 }

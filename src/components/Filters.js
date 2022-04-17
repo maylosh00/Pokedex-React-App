@@ -21,12 +21,12 @@ const Filters = ({onInputChange, onCheckboxChange, types, clickedTypes}) => {
         </button>
         
         {showCheckboxes ? 
-        <>
-        <h2>Filter by type:</h2>
-        <CheckboxFilter types={types} onCheckboxChange={onCheckboxChange} clickedTypes={clickedTypes} /> 
-        </>
+          <>
+            <h2>Filter by type:</h2>
+            <CheckboxFilter types={types} onCheckboxChange={onCheckboxChange} clickedTypes={clickedTypes} /> 
+          </>
         : 
-        ''}
+          ''}
       </div>
     </div>
   )

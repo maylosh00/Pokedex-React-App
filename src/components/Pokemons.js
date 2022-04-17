@@ -2,18 +2,12 @@ import PokemonCard from './PokemonCard'
 
 //div containing pokemon cards and buttons for showing more / less cards
 
-const Pokemons = ({pokemons, filteredPokemons, showFiltered, amount, showMoreHandler, showLessHandler}) => {
+const Pokemons = ({pokemons}) => {
   return (
     <div>
       <ul>
-      {showFiltered ?
-        filteredPokemons ? filteredPokemons.slice(0,amount).map(pokemon => <PokemonCard key={pokemon.name} pokemon={pokemon}/>) : 'loading...'
-      : 
-        pokemons ? pokemons.slice(0, amount).map(pokemon => <PokemonCard key={pokemon.name} pokemon={pokemon}/>) : 'loading...'}
+      {pokemons.map(pokemon => <PokemonCard key={pokemon.name} pokemon={pokemon}/>)}
       </ul>
-
-      <button onClick={showMoreHandler}>Show more</button>
-      <button onClick={showLessHandler}>Show less</button>
     </div>
   )
 }
