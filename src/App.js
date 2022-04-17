@@ -66,7 +66,15 @@ const App = () => {
   }
 
   const filterPokemons = () => {
-    setFilteredPokemons(pokemons.filter(pokemon => pokemon.name.includes(filter.toLowerCase()) && pokemon.types.some(type => clickedTypes.length > 0 ? clickedTypes.includes(type) : true)))
+    setFilteredPokemons(pokemons.filter(pokemon => {
+      // changes the original name format from "pokemon-name" to "pokemon name"
+      const pokemonNameWithSpaces = pokemon.name.split('-').join(' ')
+      // checks if the name includes filter 
+      return pokemonNameWithSpaces.includes(filter.toLowerCase()) && 
+      // check if pokemon has common types with clickedTypes array
+      // if clickedTypes array is empty, this condition is skipped
+      pokemon.types.some(type => clickedTypes.length > 0 ? clickedTypes.includes(type) : true)
+    }))
   }
 
   const handleFilterChange = (event) => {
@@ -94,7 +102,7 @@ const App = () => {
       />
       
       <Pokemons 
-        pokemons={pokemons.slice(0, amount)}
+        pokemons={pokemonsToShow.slice(0, amount)}
       />
 
       <button onClick={() => setAmount(amount + 20)}>Show more</button>
