@@ -3,7 +3,7 @@ import CheckboxFilter from './CheckboxFilter'
 
 //div containing both name and checkbox filters
 
-const Filters = ({onInputChange, onCheckboxChange, types, clickedTypes}) => {
+const Filters = ({handleInputChange, handleCheckboxChange, types, clickedTypes}) => {
   const [showCheckboxes, setShowCheckboxes] = useState(false)
 
   const handleClick = (event) => {
@@ -13,7 +13,7 @@ const Filters = ({onInputChange, onCheckboxChange, types, clickedTypes}) => {
   return (
     <div>
       <h2>Search for pokemons:</h2>
-      <input placeholder='e.g. "Pikachu"' onChange={onInputChange}/>
+      <input placeholder='e.g. "Pikachu"' onChange={handleInputChange}/>
 
       <div>
         <button onClick={handleClick}>
@@ -23,7 +23,7 @@ const Filters = ({onInputChange, onCheckboxChange, types, clickedTypes}) => {
         {showCheckboxes ? 
           <>
             <h2>Filter by type:</h2>
-            <CheckboxFilter types={types} onCheckboxChange={onCheckboxChange} clickedTypes={clickedTypes} /> 
+            <CheckboxFilter types={types} onCheckboxChange={handleCheckboxChange} clickedTypes={clickedTypes} /> 
           </>
         : 
           ''}

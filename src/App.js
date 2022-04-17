@@ -77,7 +77,7 @@ const App = () => {
     }))
   }
 
-  const handleFilterChange = (event) => {
+  const handleInputChange = (event) => {
     setFilter(event.target.value)
   }
   
@@ -95,10 +95,7 @@ const App = () => {
       <h1>Pokedex</h1>
 
       <Filters
-        onInputChange={handleFilterChange}
-        onCheckboxChange={handleCheckboxChange}
-        types={types}
-        clickedTypes={clickedTypes}
+        {...{handleInputChange, handleCheckboxChange, types, clickedTypes}}
       />
       
       <Pokemons 
