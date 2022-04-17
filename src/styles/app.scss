@@ -139,7 +139,7 @@ header {
         // width: 100em;
         max-width: 95%;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         column-gap: 2em;
         row-gap: 1.5em;
 
@@ -288,4 +288,12 @@ header {
         margin-right: 1em;
     }
 
+}
+
+.error-message {
+    color: red;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

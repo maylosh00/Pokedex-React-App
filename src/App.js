@@ -7,7 +7,6 @@ import usePokemons from './hooks/usePokemons'
 import logo from './img/logo.png';
 import './styles/app.css'
 
-
 const TYPES_URL = 'https://pokeapi.co/api/v2/type'
 const POKEMONS_URL = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20'
 
@@ -50,7 +49,7 @@ const App = () => {
   const pokemonsToShow = clickedTypes.length > 0 || filter !== '' ? filteredPokemons : pokemons
   return (
     
-    <div className="app">
+    <div className='app'>
       <header>
         <img src={logo} alt='Pokedex'/>
       </header>

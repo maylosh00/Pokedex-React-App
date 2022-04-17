@@ -203,8 +203,8 @@ header img {
   max-width: 95%;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr 1fr 1fr;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
   -webkit-column-gap: 2em;
           column-gap: 2em;
   row-gap: 1.5em;
@@ -447,5 +447,23 @@ header img {
 
 .buttons-container button:first-child {
   margin-right: 1em;
+}
+
+.error-message {
+  color: red;
+  font-family: 'Montserrat', sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.app-dark {
+  background-image: url("../img/bg-dark.png");
 }
 /*# sourceMappingURL=app.css.map */

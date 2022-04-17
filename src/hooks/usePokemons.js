@@ -16,7 +16,7 @@ const usePokemons = (url) => {
     request.then(response => {
       let requests = []
       response.data.results.forEach(pokemon => {
-        // dodatkowo, dla kazdego pokemona zrzucam potrzebne mi jego dane
+        // fetching extra information about each pokemon
         requests.push(axios
         .get(pokemon.url)
         .then(response => {
@@ -25,13 +25,12 @@ const usePokemons = (url) => {
             weight: response.data.weight,
             height: response.data.height,
             sprite: response.data.sprites.other["official-artwork"].front_default
-            // sprite: response.data.sprites.front_default
           }
           return {...pokemon, ...pokemonData}
         }))
       })
-      // updatuje tablice z pokemonami dopiero gdy dane dla calej serii zostana pobrane 
-      // (aby useEffect wyzej nie odpalil sie za wczesnie) 
+      // updating the pokemons array when the data for entire series of pokemons is fetched
+      // (so that useEffect doesn't trigger too early)
       Promise.all(requests).then(results => {
         setPokemons(pokemons.concat(results))
         setNextPokemonsUrl(response.data.next)
