@@ -136,19 +136,23 @@ header {
     justify-content: center;
 
     .pokemons-container {
-        // width: 100em;
         max-width: 95%;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
+        grid-auto-rows: min-content;
+
         column-gap: 2em;
         row-gap: 1.5em;
 
         .pokemon-card {
             width: 18em;
-            min-height: 6.5em;
+            // fix for taking up max amount of space
+            align-self: start;
+            height: minmax(6.5em, max-content);
             background-color: white;
             transform: background-color;
             transition: .2s ease-out;
+
             display: flex;
             align-items: center;
             justify-content: right;
@@ -195,24 +199,24 @@ header {
                         margin-right: 0.5em;
                     }
 
-                    .type-normal { background-color: $poke-normal !important ;}
-                    .type-fighting { background-color: $poke-fighting !important ;}
-                    .type-flying { background-color: $poke-flying !important ;}
-                    .type-poison { background-color: $poke-poison !important ;}
-                    .type-ground { background-color: $poke-ground !important ;}
-                    .type-rock { background-color: $poke-rock !important ;}
-                    .type-bug { background-color: $poke-bug !important ;}
-                    .type-ghost { background-color: $poke-ghost !important ;}
-                    .type-steel { background-color: $poke-steel !important ;}
-                    .type-fire { background-color: $poke-fire !important ;}
-                    .type-water { background-color: $poke-water !important ;}
-                    .type-grass { background-color: $poke-grass !important ;}
-                    .type-electric { background-color: $poke-electric !important ;}
-                    .type-psychic { background-color: $poke-psychic !important ;}
-                    .type-ice { background-color: $poke-ice !important ;}
-                    .type-dragon { background-color: $poke-dragon !important ;}
-                    .type-dark { background-color: $poke-dark !important ;}
-                    .type-fairy { background-color: $poke-fairy !important ;}
+                    .type-normal { background-color: $poke-normal;}
+                    .type-fighting { background-color: $poke-fighting;}
+                    .type-flying { background-color: $poke-flying;}
+                    .type-poison { background-color: $poke-poison;}
+                    .type-ground { background-color: $poke-ground;}
+                    .type-rock { background-color: $poke-rock;}
+                    .type-bug { background-color: $poke-bug;}
+                    .type-ghost { background-color: $poke-ghost;}
+                    .type-steel { background-color: $poke-steel;}
+                    .type-fire { background-color: $poke-fire;}
+                    .type-water { background-color: $poke-water;}
+                    .type-grass { background-color: $poke-grass;}
+                    .type-electric { background-color: $poke-electric;}
+                    .type-psychic { background-color: $poke-psychic;}
+                    .type-ice { background-color: $poke-ice;}
+                    .type-dragon { background-color: $poke-dragon;}
+                    .type-dark { background-color: $poke-dark;}
+                    .type-fairy { background-color: $poke-fairy;}
                 }
 
                 .info-container {
@@ -284,13 +288,27 @@ header {
         background-color: $base-blue;
         color: #fff;
     }
-    button:first-child {
-        margin-right: 1em;
+    button:nth-child(2) {
+        margin-left: 1em;
     }
 
 }
 
+.info {
+    font-size: 18px;
+    color: $base-dark-blue;
+    width: 30em;
+    margin: auto;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
 .error-message {
+    font-size: 18px;
+    margin-top: 1em;
     color: red;
     font-family: 'Montserrat', sans-serif;
     display: flex;

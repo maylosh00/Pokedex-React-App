@@ -3,21 +3,23 @@ import Filters from './components/Filters'
 import Pokemons from './components/Pokemons'
 import useTypes from './hooks/useTypes'
 import usePokemons from './hooks/usePokemons'
+import ThreeDots from './loaders/threeDots'
 
 import logo from './img/logo.png';
 import './styles/app.css'
 
 const TYPES_URL = 'https://pokeapi.co/api/v2/type'
 const POKEMONS_URL = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20'
+const POKEMONS_PER_PAGE = 18;
 
 const App = () => {
   const [filter, setFilter] = useState('')
   const [filteredPokemons, setFilteredPokemons] = useState([])
   const [clickedTypes, setClickedTypes] = useState([])
-  const [amount, setAmount] = useState(20)
+  const [amount, setAmount] = useState(POKEMONS_PER_PAGE)
   // custom hooks for fetching data
   const {types, typesError} = useTypes(TYPES_URL)
-  const pokemons = usePokemons(POKEMONS_URL)
+  const {pokemons, finishedLoading} = usePokemons(POKEMONS_URL)
 
   useEffect(() => {
     filterPokemons()
@@ -47,6 +49,8 @@ const App = () => {
   }
 
   const pokemonsToShow = clickedTypes.length > 0 || filter !== '' ? filteredPokemons : pokemons
+  const showMoreButton = amount < pokemonsToShow.length
+  const showLessButton = amount > POKEMONS_PER_PAGE && pokemonsToShow.length > POKEMONS_PER_PAGE
   return (
     
     <div className='app'>
@@ -54,20 +58,30 @@ const App = () => {
         <img src={logo} alt='Pokedex'/>
       </header>
 
-      {typesError && <div className='error-message'>{typesError}</div>}
       <Filters
         {...{handleInputChange, handleCheckboxChange, types, clickedTypes}}
       />
+
+      {typesError && <div className='error-message'>{typesError}</div>}
+
+      <Pokemons pokemons={pokemonsToShow.slice(0, amount)} />
+
+      {!finishedLoading && pokemonsToShow.length < amount 
+      ? <div className='info'><ThreeDots /></div> 
+      : null}
+
+      {finishedLoading && pokemonsToShow.length === 0 
+      ? <div className='info'>Oops, looks like there are no pokemons matching your filters :(</div> 
+      : null}
       
-      <Pokemons 
-        pokemons={pokemonsToShow.slice(0, amount)}
-      />
       <div className='buttons-container'>
-        <button onClick={() => setAmount(amount + 20)}>Show more</button>
-        <button onClick={() => setAmount(20)}>Show less</button>
+        {showMoreButton && <button onClick={() => setAmount(amount + POKEMONS_PER_PAGE)}>Show more</button>}
+        {showLessButton && <button onClick={() => setAmount(POKEMONS_PER_PAGE)}>Show less</button>}
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
+
+ 

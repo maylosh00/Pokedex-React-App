@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import noPokemon from '../img/no-pokemon.png'
 
 //list item related to a particular pokemon, can be clicked to show more info
 
@@ -17,7 +18,7 @@ const PokemonCard = ({pokemon}) => {
             <>
               <div className='types-container'>
                 {pokemon.types.map(type => 
-                <div className={`type type-${type}`}>
+                <div key={`${pokemon.name}${type}`} className={`type type-${type}`}>
                   <p>{type}</p>
                 </div>
                 )}
@@ -35,7 +36,7 @@ const PokemonCard = ({pokemon}) => {
           } 
         </div>
         <div className='pokemon-img-container'>
-          <img className='pokemon-img' src={pokemon.sprite !== null ? pokemon.sprite : './img/no-pokemon.png'} alt={pokemon.name + ' sprite'} />
+          <img className='pokemon-img' src={pokemon.sprite ? pokemon.sprite : noPokemon} alt={pokemon.name + ' sprite'} />
         </div>
         
     </li>

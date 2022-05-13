@@ -205,6 +205,8 @@ header img {
   display: grid;
   -ms-grid-columns: 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: -webkit-min-content;
+  grid-auto-rows: min-content;
   -webkit-column-gap: 2em;
           column-gap: 2em;
   row-gap: 1.5em;
@@ -212,7 +214,11 @@ header img {
 
 .pokemons-section .pokemons-container .pokemon-card {
   width: 18em;
-  min-height: 6.5em;
+  -ms-flex-item-align: start;
+      align-self: start;
+  height: minmax(6.5em, -webkit-max-content);
+  height: minmax(6.5em, -moz-max-content);
+  height: minmax(6.5em, max-content);
   background-color: white;
   -webkit-transform: background-color;
           transform: background-color;
@@ -297,75 +303,75 @@ header img {
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-normal {
-  background-color: #a8a878 !important;
+  background-color: #a8a878;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-fighting {
-  background-color: #c02038 !important;
+  background-color: #c02038;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-flying {
-  background-color: #a890f0 !important;
+  background-color: #a890f0;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-poison {
-  background-color: #a040a0 !important;
+  background-color: #a040a0;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-ground {
-  background-color: #e0c068 !important;
+  background-color: #e0c068;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-rock {
-  background-color: #b8a038 !important;
+  background-color: #b8a038;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-bug {
-  background-color: #a8b820 !important;
+  background-color: #a8b820;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-ghost {
-  background-color: #705898 !important;
+  background-color: #705898;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-steel {
-  background-color: #b8b8d0 !important;
+  background-color: #b8b8d0;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-fire {
-  background-color: #f08030 !important;
+  background-color: #f08030;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-water {
-  background-color: #6890f0 !important;
+  background-color: #6890f0;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-grass {
-  background-color: #78c850 !important;
+  background-color: #78c850;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-electric {
-  background-color: #f8d030 !important;
+  background-color: #f8d030;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-psychic {
-  background-color: #f85888 !important;
+  background-color: #f85888;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-ice {
-  background-color: #98d8d8 !important;
+  background-color: #98d8d8;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-dragon {
-  background-color: #7038f8 !important;
+  background-color: #7038f8;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-dark {
-  background-color: #705848 !important;
+  background-color: #705848;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .types-container .type-fairy {
-  background-color: #ee99ac !important;
+  background-color: #ee99ac;
 }
 
 .pokemons-section .pokemons-container .pokemon-card .attributes .info-container p {
@@ -445,11 +451,31 @@ header img {
   color: #fff;
 }
 
-.buttons-container button:first-child {
-  margin-right: 1em;
+.buttons-container button:nth-child(2) {
+  margin-left: 1em;
+}
+
+.info {
+  font-size: 18px;
+  color: #264653;
+  width: 30em;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .error-message {
+  font-size: 18px;
+  margin-top: 1em;
   color: red;
   font-family: 'Montserrat', sans-serif;
   display: -webkit-box;
@@ -461,9 +487,5 @@ header img {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
-
-.app-dark {
-  background-image: url("../img/bg-dark.png");
 }
 /*# sourceMappingURL=app.css.map */
