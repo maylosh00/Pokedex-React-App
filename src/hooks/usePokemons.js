@@ -1,22 +1,15 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const usePokemons = (url) => {
+const usePokemons = (url, amount) => {
   const [pokemons, setPokemons] = useState([])
   const [nextPokemonsUrl, setNextPokemonsUrl] = useState(url)
 
   useEffect(() => {
-    if (nextPokemonsUrl) 
-      loadPokemons(nextPokemonsUrl)
-  }, [pokemons, nextPokemonsUrl])
-
-  const loadPokemons = (url) => {
-    const request = axios.get(url)
-    request.then(response => {
-      let requests = []
-      response.data.results.forEach(pokemon => {
-        // fetching extra information about each pokemon
-        requests.push(axios
+    if (nextPokemonsUrl && pokemons.length !== amount) {
+      const request = axios.get(nextPokemonsUrl)
+      request.then(response => {
+        Promise.all(response.data.results.map(pokemon => axios
           .get(pokemon.url)
           .then(response => {
             const pokemonData = {
@@ -27,16 +20,13 @@ const usePokemons = (url) => {
               sprite: response.data.sprites.other["home"].front_default
             }
           return {...pokemon, ...pokemonData}
-          }))
+          }))).then(results => {
+          setPokemons(pokemons.concat(results))
+          setNextPokemonsUrl(response.data.next)
+        })
       })
-      // updating the pokemons array when the data for entire series of pokemons is fetched
-      // (so that useEffect doesn't trigger too early)
-      Promise.all(requests).then(results => {
-        setPokemons(pokemons.concat(results))
-        setNextPokemonsUrl(response.data.next)
-      })
-    })
-  }
+    }
+  }, [pokemons, nextPokemonsUrl, amount])
 
   const finishedLoading = nextPokemonsUrl === null 
   return {pokemons, finishedLoading}

@@ -3,6 +3,15 @@ import noPokemon from '../img/no-pokemon.png'
 
 //list item related to a particular pokemon, can be clicked to show more info
 
+const PokemonInfo = ({ height, weight }) => {
+  return (
+    <div className='info-container'>
+      <p>height: {height}</p>
+      <p>weight: {weight}</p>
+  </div>
+  )
+}
+
 const PokemonCard = ({pokemon}) => {
   const [clicked, setClicked] = useState(false)
 
@@ -24,10 +33,7 @@ const PokemonCard = ({pokemon}) => {
                 )}
               </div>
               {clicked ? 
-                <div className='info-container'>
-                  <p>height: {pokemon.height}</p>
-                  <p>weight: {pokemon.weight}</p>
-                </div>
+                <PokemonInfo weight={pokemon.weight} height={pokemon.height} />
               : ''}
              
             </>
